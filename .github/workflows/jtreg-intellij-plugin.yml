@@ -1,0 +1,23 @@
+name: jtreg-intellij-plugin.yml
+on:
+  push:
+    branches:
+      - workshop/2024
+
+jobs:
+  jtreg-intellij-plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+      - name: 'Build JTReg'
+        shell: bash
+        run: bash make/build.sh
+      - name: 'Build IntelliJ Plugin'
+        shell: bash
+        run: cd intellij-plugin && sh gradlew clean build
