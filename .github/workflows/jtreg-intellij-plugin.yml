@@ -1,8 +1,7 @@
 name: jtreg-intellij-plugin.yml
 on:
-  push:
-    branches:
-      - workshop/2024
+  release:
+    types: [created]
 
 jobs:
   jtreg-intellij-plugin:
@@ -21,3 +20,9 @@ jobs:
       - name: 'Build IntelliJ Plugin'
         shell: bash
         run: cd plugins/idea && sh gradlew clean build
+      - name: 'Upload IntelliJ Plugin'
+        run: |
+          gh release upload ${{ github.event.release.tag_name }} plugins/idea/build/distributions/jtreg-plugin-1.16.zip --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
