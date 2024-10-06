@@ -20,4 +20,4 @@ jobs:
         run: bash make/build.sh
       - name: 'Build IntelliJ Plugin'
         shell: bash
-        run: cd intellij-plugin && sh gradlew clean build
+        run: cd plugins/idea && sh gradlew clean build
